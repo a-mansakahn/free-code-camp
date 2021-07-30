@@ -1,15 +1,15 @@
 function checkCashRegister(price, cash, cid) {
 
   const CURRENCY_UNIT = {
-    PENNY : 1,
-    NICKEL : 5,
-    DIME: 10,
-    QUARTER: 25,
-    ONE: 100,
-    FIVE: 500,
-    TEN: 1000,
-    TWENTY: 2000,
-    FIFTY: 5000,
+    "PENNY" : 1,
+    "NICKEL" : 5,
+    "DIME": 10,
+    "QUARTER": 25,
+    "ONE": 100,
+    "FIVE": 500,
+    "TEN": 1000,
+    "TWENTY": 2000,
+    "FIFTY": 5000,
     "ONE HUNDRED": 10000
   };
   //variables
@@ -27,17 +27,21 @@ function checkCashRegister(price, cash, cid) {
     status = "INSUFFICIENT_FUNDS";
     change = [];
   }
+  else if(changeSum == drawerTotal){
+    status = "CLOSED";
+    change = cid;
+  }
+  else if(changeSum < drawerTotal){
+    let newCid = cid.filter(elem => elem[1] !== 0).reverse();
+    let currency = elem[0];
+    for(let x=0; x < newCid.length; x++){
+      //go to the first one, take money out as needed, go to the next one when empty
+      while(changeSum >= newCid[x][1] && changeSum > 0){
 
-  //Annoying bit
-  let newCid = cid.filter(elem => elem[1] !== 0).reverse();
-
-  for(let x=0; x<newCid.length; x++){
-    if(changeSum <= newCid[x][1]*100){
-
+      }
     }
   }
 
-  
   return {"status": status, "change": change};
 }
 
